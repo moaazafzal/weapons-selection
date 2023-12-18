@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Game/WeaponsSelection/Scenes/Gamaplay.unity
+    guid: 7e9bf73ac82904c2e93dcd012375d596
   m_configObjects: {}
