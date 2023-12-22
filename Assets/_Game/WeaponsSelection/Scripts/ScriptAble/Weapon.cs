@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Game.WeaponsSelection.Scripts.ScriptAble
 {
@@ -44,33 +45,40 @@ public class UpgradeDetail
     [SerializeField]
     private string upgradeName;
     [SerializeField]
+    private float maxWeaponValue;
+    [SerializeField]
     private float maxValue;
     [SerializeField]
     private float factor;
+    private float _currentValue;
     [SerializeField]
-    private float currentValue;
+    private float staringValue;
 
     public void SetUpgrade(string weaponName)
     {
         _weaponName = weaponName;
-        currentValue= PlayerPrefs.GetInt($"{upgradeName+_weaponName}");
+        _currentValue= PlayerPrefs.GetFloat($"{upgradeName+_weaponName}",staringValue);
     }
     public void UpgradeWeapon()
     {
-        currentValue += factor;
-        PlayerPrefs.SetFloat($"{upgradeName+_weaponName}",currentValue);
+        _currentValue += factor;
+        PlayerPrefs.SetFloat($"{upgradeName+_weaponName}",_currentValue);
     }
     public bool CanUpgrade()
     {
-        return maxValue > currentValue;
+        return maxWeaponValue > _currentValue;
     }
     public float GetCurrentValue()
     {
-        return currentValue;
+        return _currentValue;
     }
     public string GetUpgradeName()
     {
         return upgradeName;
+    }
+    public float GetMaxWeaponValue()
+    {
+        return maxWeaponValue;
     }
     public float GetMaxValue()
     {

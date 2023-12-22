@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Game.WeaponsSelection.Scripts.ScriptAble;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,16 +27,33 @@ public class UpgradeBar : MonoBehaviour
     public void SetUpgradeBar(UpgradeDetail upgradeDetail)
     {
         _upgradeDetail = upgradeDetail;
+        UpdateValues();
+    }
+
+    private void UpdateValues()
+    {
         _upgradeName = _upgradeDetail.GetUpgradeName();
         _currentValue = _upgradeDetail.GetCurrentValue();
         _factor = _upgradeDetail.GetFactor();
+        upgradeNameText.text = _upgradeName;
+        currentValueText.text = $"{_currentValue}";
+        factorText.text = $"{_factor}";
+        SetUpgradeSlider();
         CheckStatus();
     }
 
     private void UpgradeWeapon()
     {
-        if (canUpgrade) 
+        if (canUpgrade)
+        {
             _upgradeDetail.UpgradeWeapon();
+            WeaponManager.Instance.ResetCurrentWeapon();
+        }
+    }
+
+    public void SetUpgradeSlider()
+    {
+        slider.value = _currentValue / _upgradeDetail.GetMaxValue();
     }
 
     private void CheckStatus()

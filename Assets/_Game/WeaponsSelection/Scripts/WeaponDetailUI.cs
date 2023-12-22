@@ -1,36 +1,66 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Game.WeaponsSelection.Scripts.ScriptAble;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponDetailUI : MonoBehaviour
 {
+    private int _weaponId;
     [SerializeField] private Image weaponImage;
     [SerializeField] private Image selectedImage;
-    [SerializeField] private Image tickedImage;
+    [SerializeField] private Image equipImage;
     [SerializeField] private Text dpsText;
+    [SerializeField] private Button selectButton;
+    private Weapon _weapon;
 
-    public void SetWeaponUi(Sprite weaponSprite, string weaponDps)
+    private void OnEnable()
     {
-        weaponImage.sprite = weaponSprite;
-        dpsText.text =$"{("DPS ")}{weaponDps}" ;
-        UnSelect();
-        UnEquipWeapon();
+        WeaponsPresenter.Instance.OnUnEquipWeapon += UnEquipWeapon;
+        WeaponsPresenter.Instance.OnUnSelectWeapon += UnSelect;
     }
-    public void UnSelect()
+    private void OnDisable()
+    {
+        WeaponsPresenter.Instance.OnUnEquipWeapon -= UnEquipWeapon;
+        WeaponsPresenter.Instance.OnUnSelectWeapon -= UnSelect;
+    }
+
+    private void Start()
+    {
+        selectButton.onClick.AddListener(SelectWeapon);
+    }
+
+    public void SetWeaponUi(Weapon weapon, int Id)
+    {
+        _weaponId = Id;
+        _weapon = weapon;
+        weaponImage.sprite = _weapon.GetWeaponSprite();
+        dpsText.text =$"{("DPS ")}{_weapon.GetDps()}";
+       // UnSelect();
+       // UnEquipWeapon();
+    }
+    private void UnSelect()
     {
         selectedImage.enabled = false;
     }
     public void SelectWeapon()
     {
+        WeaponManager.Instance.SetCurrentWeapon(_weapon);
+        WeaponManager.Instance.SelectedWeapon = _weaponId;
         selectedImage.enabled = true;
     }
     public void EquipWeapon()
     {
-        tickedImage.enabled = true;
+        equipImage.enabled = true;
+        WeaponManager.Instance.EquipWeapon = _weaponId;
+        Debug.Log("equoped"+ _weaponId);
     }
-    public void UnEquipWeapon()
+
+    private void UnEquipWeapon()
     {
-        tickedImage.enabled = false;
+        equipImage.enabled = false;
     }
+
+   
 }

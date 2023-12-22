@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class WeaponsPresenter : MonoBehaviour
 {
+  public static WeaponsPresenter Instance;
   [SerializeField] private WeaponManager weaponManager;
   [SerializeField] private GameObject upgradePrefab;
   [SerializeField] private GameObject weaponUiPrefab;
@@ -16,40 +17,101 @@ public class WeaponsPresenter : MonoBehaviour
   [SerializeField] private Transform upgradeGrid;
   [SerializeField] private Transform weaponsGrid;
   [SerializeField] private Button exitButton, equipButton;
-  private List<GameObject> uiGuns= new List<GameObject>();
-  private int _selectedWeapon = 0;
+  private readonly List<GameObject> uiWeapons= new List<GameObject>();
+  private readonly List<GameObject> upgradeBars= new List<GameObject>();
+  public event Action OnUnEquipWeapon;
+  public event Action OnUnSelectWeapon;
+  private void Awake()
+  {
+    Instance = this;
+  }
 
   private void Start()
   {
     Init();
+    exitButton.onClick.AddListener(Exit);
+    equipButton.onClick.AddListener(EquipWeapon);
   }
 
   private void Init()
   {
-    _selectedWeapon = PlayerPrefs.GetInt("selectedWeapon");
-    DefaultSelectedGun();
-
+    DefaultSelectedWeapon();
+    EquipWeapon();
   }
   private void OnEnable()
   {
-    weaponManager.OnCreateWeapon += SetWeaponUI;
+    weaponManager.OnCreateWeapon += SetWeaponUi;
+    weaponManager.OnCreateWeaponBar += SetUpgradeBar;
+    weaponManager.OnSelectedWeapon += SelectWeapon;
   }
   
   private void OnDisable()
   {
-    weaponManager.OnCreateWeapon -= SetWeaponUI;
+    weaponManager.OnCreateWeapon -= SetWeaponUi;
+    weaponManager.OnCreateWeaponBar -= SetUpgradeBar;
+    weaponManager.OnSelectedWeapon -= SelectWeapon;
   }
-  private void SetWeaponUI(Weapon obj)
+  private void SetWeaponUi(Weapon obj, int id)
   {
-    GameObject go = Instantiate(weaponUiPrefab, weaponsGrid);
-    uiGuns.Add(go);
-    go.GetComponent<WeaponDetailUI>().SetWeaponUi(obj.GetWeaponSprite(),obj.GetDps());
+    var go = Instantiate(weaponUiPrefab, weaponsGrid);
+    uiWeapons.Add(go);
+    go.GetComponent<WeaponDetailUI>().SetWeaponUi(obj,id);
   }
 
-  private void DefaultSelectedGun()
+  private void SetUpgradeBar(UpgradeDetail upgradeDetail)
   {
-    uiGuns[_selectedWeapon].GetComponent<WeaponDetailUI>().EquipWeapon();
-    uiGuns[_selectedWeapon].GetComponent<WeaponDetailUI>().SelectWeapon();
+ //   ResetList(upgradeBars);
+    var go = Instantiate(upgradePrefab, upgradeGrid);
+    go.GetComponent<UpgradeBar>().SetUpgradeBar(upgradeDetail);
+    upgradeBars.Add(go);
   }
- 
+
+  private void ResetList(ICollection<GameObject> list)
+  {
+    foreach (var variable in list)
+    {
+      Destroy(variable);
+    }
+    list.Clear();
+  }
+  public void ResetSelection()
+  {
+    OnUnSelectWeapon?.Invoke();
+  }
+  private void UnEquipAll()
+  {
+    OnUnEquipWeapon?.Invoke();
+  }
+
+  private void DefaultSelectedWeapon()
+  { 
+   // uiWeapons[SelectedWeapon].GetComponent<WeaponDetailUI>().EquipWeapon();
+    uiWeapons[weaponManager.SelectedWeapon].GetComponent<WeaponDetailUI>().SelectWeapon();
+    SeWeaponUi();
+  }
+
+  private void SelectWeapon()
+  {
+    ResetSelection();
+    ResetList(upgradeBars);
+    SeWeaponUi();
+  }
+  
+  private void SeWeaponUi()
+  {
+    weaponName.text = weaponManager.CurrentWeapon.GetName();
+    weaponImage.sprite = weaponManager.CurrentWeapon.GetWeaponSprite();
+  }
+  private void EquipWeapon()
+  {
+    UnEquipAll();
+    Debug.Log("aa"+weaponManager.SelectedWeapon);
+    uiWeapons[weaponManager.SelectedWeapon].GetComponent<WeaponDetailUI>().EquipWeapon();
+  }
+
+  private void Exit()
+  {
+    
+  }
+
 }

@@ -18,14 +18,20 @@ MonoBehaviour:
   weaponImage: {fileID: 21300000, guid: f8c9467a892580344bb697526dac0d13, type: 3}
   upgradeWeapons:
   - upgradeName: DAMAGE
-    maxValue: 12
+    maxWeaponValue: 12
+    maxValue: 15
     factor: 0.5
     currentValue: 8
+    staringValue: 8
   - upgradeName: AMMO
+    maxWeaponValue: 150
     maxValue: 150
     factor: 10
     currentValue: 50
+    staringValue: 50
   - upgradeName: SPEED
-    maxValue: 100
+    maxWeaponValue: 100
+    maxValue: 150
     factor: 10
     currentValue: 60
+    staringValue: 60
