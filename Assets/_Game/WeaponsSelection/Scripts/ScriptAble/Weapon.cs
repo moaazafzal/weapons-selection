@@ -15,7 +15,14 @@ namespace _Game.WeaponsSelection.Scripts.ScriptAble
         [SerializeField] public GameObject weaponPrefab;
         [SerializeField] private Sprite weaponImage;
         public List<UpgradeDetail> upgradeWeapons= new List<UpgradeDetail>();
-        
+
+        public int GetBuyAmount
+        {
+            get => unlockPrice;
+
+            set => unlockPrice = value;
+        }
+
         public void Load()
         {
             foreach (var t in upgradeWeapons)

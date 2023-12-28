@@ -13,6 +13,7 @@ public class WeaponsPresenter : MonoBehaviour
   [SerializeField] private GameObject upgradePrefab;
   [SerializeField] private GameObject weaponUiPrefab;
   [SerializeField] private Text weaponName;
+  [SerializeField] private Text buyAmount;
   [SerializeField] private Image weaponImage;
   [SerializeField] private Transform upgradeGrid;
   [SerializeField] private Transform weaponsGrid;
@@ -44,6 +45,7 @@ public class WeaponsPresenter : MonoBehaviour
     weaponManager.OnCreateWeapon += SetWeaponUi;
     weaponManager.OnCreateWeaponBar += SetUpgradeBar;
     weaponManager.OnSelectedWeapon += SelectWeapon;
+    weaponManager.OnSetBuyAmount += SetBuyAmount;
   }
   
   private void OnDisable()
@@ -51,6 +53,8 @@ public class WeaponsPresenter : MonoBehaviour
     weaponManager.OnCreateWeapon -= SetWeaponUi;
     weaponManager.OnCreateWeaponBar -= SetUpgradeBar;
     weaponManager.OnSelectedWeapon -= SelectWeapon;
+    weaponManager.OnSetBuyAmount -= SetBuyAmount;
+
     
   }
   private void SetWeaponUi(Weapon obj, int id)
@@ -90,6 +94,12 @@ public class WeaponsPresenter : MonoBehaviour
    // uiWeapons[SelectedWeapon].GetComponent<WeaponDetailUI>().EquipWeapon();
     _uiWeapons[weaponManager.SelectedWeapon].GetComponent<WeaponDetailUI>().SelectWeapon();
     SetWeaponUi();
+  }
+
+  private void SetBuyAmount(int amount, bool bought)
+  {
+    buyAmount.gameObject.SetActive(!bought);
+    buyAmount.text = $"{amount}$";
   }
 
   private void SelectWeapon()

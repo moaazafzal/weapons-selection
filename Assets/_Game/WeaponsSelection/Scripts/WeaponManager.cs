@@ -42,7 +42,7 @@ public class WeaponManager : MonoBehaviour
    public event Action<UpgradeDetail> OnCreateWeaponBar;
    
    public event Action OnSelectedWeapon;
-   public event Action OnBuyWeapon;
+   public event Action<int,bool> OnSetBuyAmount;
    
    
       
@@ -92,6 +92,7 @@ public class WeaponManager : MonoBehaviour
    {
       CurrentWeapon = currentWeapon;
       ResetCurrentWeapon();
+      OnSetBuyAmount?.Invoke(CurrentWeapon.GetBuyAmount,CurrentWeapon.CheckWeaponUnLocked());
    }
 
    public void ResetCurrentWeapon()
