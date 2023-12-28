@@ -15,6 +15,7 @@ namespace _Game.WeaponsSelection.Scripts.ScriptAble
         [SerializeField] public GameObject weaponPrefab;
         [SerializeField] private Sprite weaponImage;
         public List<UpgradeDetail> upgradeWeapons= new List<UpgradeDetail>();
+        
 
         public int GetBuyAmount
         {
@@ -71,6 +72,9 @@ namespace _Game.WeaponsSelection.Scripts.ScriptAble
         {
             return weaponImage;
         }
+
+       
+        
         
     }
     
@@ -91,7 +95,7 @@ public class UpgradeDetail
     private float _currentValue;
     [SerializeField]
     private float staringValue;
-
+    [SerializeField] private int baseUpgradeAmount, incrementAmount;
     public void SetUpgrade(string weaponName)
     {
         _weaponName = weaponName;
@@ -101,10 +105,22 @@ public class UpgradeDetail
     {
         _currentValue += factor;
         PlayerPrefs.SetFloat($"{upgradeName+_weaponName}",_currentValue);
+        PlayerPrefs.SetInt("multiplier"+_weaponName+upgradeName,PlayerPrefs.GetInt("multiplier"+_weaponName+upgradeName)+1);
+        
     }
     public bool CanUpgrade()
     {
-        return maxWeaponValue > _currentValue;
+        if (!IsMax())
+        {
+            
+        }
+
+        return false;
+    }
+
+    public bool IsMax()
+    {
+        return maxWeaponValue <= _currentValue;
     }
     public float GetCurrentValue()
     {
@@ -125,6 +141,14 @@ public class UpgradeDetail
     public float GetFactor()
     {
         return factor;
+    }
+    public int GetBaseUpgradeAmount()
+    {
+        return baseUpgradeAmount;
+    }
+    public int GetCurrentUpgradeAmount()
+    {
+        return baseUpgradeAmount+(PlayerPrefs.GetInt("multiplier"+_weaponName+upgradeName)*incrementAmount);
     }
     
 }

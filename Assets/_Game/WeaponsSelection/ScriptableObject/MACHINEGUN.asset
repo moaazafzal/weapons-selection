@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83880b7d6c8d7470795c40631a939363, type: 3}
   m_Name: MACHINEGUN
   m_EditorClassIdentifier: 
-  weaponUnlocked: 1
+  weaponUnlocked: 0
   unlockPrice: 15000
   name: MACHINEGUN
   weaponDps: 95.5
@@ -24,13 +24,19 @@ MonoBehaviour:
     maxValue: 15
     factor: 0.5
     staringValue: 8
+    baseUpgradeAmount: 1500
+    incrementAmount: 1500
   - upgradeName: AMMO
     maxWeaponValue: 150
     maxValue: 150
     factor: 10
     staringValue: 50
+    baseUpgradeAmount: 1500
+    incrementAmount: 1500
   - upgradeName: SPEED
     maxWeaponValue: 100
     maxValue: 150
     factor: 10
     staringValue: 60
+    baseUpgradeAmount: 1500
+    incrementAmount: 1500

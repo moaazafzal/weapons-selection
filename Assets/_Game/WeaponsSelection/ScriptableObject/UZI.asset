@@ -24,13 +24,19 @@ MonoBehaviour:
     maxValue: 15
     factor: 0.5
     staringValue: 3.5
+    baseUpgradeAmount: 800
+    incrementAmount: 1000
   - upgradeName: AMMO
     maxWeaponValue: 70
     maxValue: 150
     factor: 10
     staringValue: 40
+    baseUpgradeAmount: 800
+    incrementAmount: 1000
   - upgradeName: SPEED
     maxWeaponValue: 115
     maxValue: 150
     factor: 15
     staringValue: 70
+    baseUpgradeAmount: 800
+    incrementAmount: 1000

@@ -100,6 +100,7 @@ public class WeaponsPresenter : MonoBehaviour
   {
     buyAmount.gameObject.SetActive(!bought);
     buyAmount.text = $"{amount}$";
+   
   }
 
   private void SelectWeapon()

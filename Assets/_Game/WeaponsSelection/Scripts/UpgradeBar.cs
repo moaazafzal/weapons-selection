@@ -10,15 +10,16 @@ public class UpgradeBar : MonoBehaviour
     [SerializeField]  private Text upgradeNameText;
     [SerializeField]  private Text currentValueText;
     [SerializeField]  private Button upgradeButton;
+    [SerializeField]  private Button maxButton;
     [SerializeField] private Text factorText;
-    [SerializeField] private Sprite upgradeSprite, maxSprite;
+    [SerializeField] private Text upgradeAmountText;
     [SerializeField] private Slider slider;
 
     private string _upgradeName;
     private float _currentValue;
     private float _factor;
     private UpgradeDetail _upgradeDetail;
-    private bool canUpgrade;
+    private bool isMax;
     private void Start()
     {
         upgradeButton.onClick.AddListener(UpgradeWeapon);
@@ -44,8 +45,9 @@ public class UpgradeBar : MonoBehaviour
 
     private void UpgradeWeapon()
     {
-        if (canUpgrade)
+        if (!isMax && _upgradeDetail.GetCurrentUpgradeAmount()<=EconomyManager.Instance.GetCurrentCash())
         {
+            EconomyManager.Instance.AddCash(-_upgradeDetail.GetCurrentUpgradeAmount());
             _upgradeDetail.UpgradeWeapon();
             WeaponManager.Instance.ResetCurrentWeapon();
         }
@@ -58,8 +60,11 @@ public class UpgradeBar : MonoBehaviour
 
     private void CheckStatus()
     {
-        canUpgrade = _upgradeDetail.CanUpgrade();
-        upgradeButton.image.sprite = canUpgrade ? upgradeSprite : maxSprite;
+        upgradeAmountText.text = $"{_upgradeDetail.GetCurrentUpgradeAmount()}";
+        isMax = _upgradeDetail.IsMax();
+        maxButton.gameObject.SetActive(isMax);
+        upgradeButton.gameObject.SetActive(!isMax);
+        
     }
 
 }

@@ -19,6 +19,7 @@ public class WeaponDetailUI : MonoBehaviour
     {
         WeaponsPresenter.Instance.OnUnEquipWeapon += UnEquipWeapon;
         WeaponsPresenter.Instance.OnUnSelectWeapon += UnSelect;
+        
     }
     private void OnDisable()
     {
@@ -46,6 +47,7 @@ public class WeaponDetailUI : MonoBehaviour
     }
     public void SelectWeapon()
     {
+        WeaponManager.Instance.OnSelectedWeaponButton = SelectWeapon;
         WeaponManager.Instance.SetCurrentWeapon(_weapon);
         WeaponManager.Instance.SelectedWeapon = _weaponId;
         selectedImage.enabled = true;
@@ -54,7 +56,7 @@ public class WeaponDetailUI : MonoBehaviour
     {
         equipImage.enabled = true;
         WeaponManager.Instance.EquipWeapon = _weaponId;
-        Debug.Log("equoped"+ _weaponId);
+        Debug.Log("equip"+ _weaponId);
     }
 
     private void UnEquipWeapon()
