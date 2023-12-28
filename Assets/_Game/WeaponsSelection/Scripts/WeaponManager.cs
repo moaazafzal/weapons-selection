@@ -99,7 +99,7 @@ public class WeaponManager : MonoBehaviour
    {
       OnSelectedWeapon?.Invoke();
       CreateWeaponUpdateBar(CurrentWeapon);
-      Debug.Log("aaa"+CurrentWeapon.CheckWeaponUnLocked());
+//      Debug.Log("aaa"+CurrentWeapon.CheckWeaponUnLocked());
    }
 
    public void BuyWeapon()

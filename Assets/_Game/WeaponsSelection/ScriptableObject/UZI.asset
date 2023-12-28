@@ -17,7 +17,7 @@ MonoBehaviour:
   name: UZI
   weaponDps: 45.5
   weaponPrefab: {fileID: 0}
-  weaponImage: {fileID: 21300000, guid: e92527f6d0fe45342ab542b47346d45f, type: 3}
+  weaponImage: {fileID: 21300000, guid: c9a00c25bd0914c1eb969bb92d3d9828, type: 3}
   upgradeWeapons:
   - upgradeName: DAMAGE
     maxWeaponValue: 5

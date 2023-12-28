@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83880b7d6c8d7470795c40631a939363, type: 3}
   m_Name: MACHINEGUN
   m_EditorClassIdentifier: 
-  weaponUnlocked: 0
+  weaponUnlocked: 1
   unlockPrice: 15000
   name: MACHINEGUN
   weaponDps: 95.5
   weaponPrefab: {fileID: 0}
-  weaponImage: {fileID: 21300000, guid: f8c9467a892580344bb697526dac0d13, type: 3}
+  weaponImage: {fileID: 21300000, guid: 44608cd8b5d6243c6951a5485e2b008f, type: 3}
   upgradeWeapons:
   - upgradeName: DAMAGE
     maxWeaponValue: 12
