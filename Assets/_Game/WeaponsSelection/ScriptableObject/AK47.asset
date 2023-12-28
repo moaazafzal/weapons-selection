@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83880b7d6c8d7470795c40631a939363, type: 3}
   m_Name: AK47
   m_EditorClassIdentifier: 
+  weaponUnlocked: 1
+  unlockPrice: 500
   name: AK47
   weaponDps: 93.5
   weaponPrefab: {fileID: 0}
@@ -21,17 +23,14 @@ MonoBehaviour:
     maxWeaponValue: 11
     maxValue: 15
     factor: 0.5
-    currentValue: 7
     staringValue: 7
   - upgradeName: AMMO
     maxWeaponValue: 50
     maxValue: 150
     factor: 5
-    currentValue: 20
     staringValue: 20
   - upgradeName: SPEED
     maxWeaponValue: 90
     maxValue: 150
     factor: 10
-    currentValue: 50
     staringValue: 50

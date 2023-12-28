@@ -8,17 +8,48 @@ namespace _Game.WeaponsSelection.Scripts.ScriptAble
     public class Weapon : ScriptableObject
     {
 
+        [SerializeField] private bool weaponUnlocked;
+        [SerializeField] private int unlockPrice;
         [SerializeField] private string name;
         [SerializeField] private string weaponDps;
         [SerializeField] public GameObject weaponPrefab;
         [SerializeField] private Sprite weaponImage;
         public List<UpgradeDetail> upgradeWeapons= new List<UpgradeDetail>();
+        
         public void Load()
         {
             foreach (var t in upgradeWeapons)
             {
                 t.SetUpgrade(name);
             }
+
+            CheckState();
+        }
+
+        private void CheckState()
+        {
+            if (weaponUnlocked|| PlayerPrefs.GetInt(name)==1)
+            {
+                weaponUnlocked = true;
+                PlayerPrefs.SetInt(name,1);
+            }
+        }
+
+        public bool CheckWeaponUnLocked()
+        {
+            return weaponUnlocked;
+        }
+
+        public bool BuyWeapon(int amount)
+        {
+            if (amount >= unlockPrice)
+            {
+                weaponUnlocked = true;
+                CheckState();
+                return true;
+            }
+
+            return false;
         }
 
         public string GetName()

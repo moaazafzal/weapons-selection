@@ -42,6 +42,8 @@ public class WeaponManager : MonoBehaviour
    public event Action<UpgradeDetail> OnCreateWeaponBar;
    
    public event Action OnSelectedWeapon;
+   public event Action OnBuyWeapon;
+   
    
       
 
@@ -96,7 +98,16 @@ public class WeaponManager : MonoBehaviour
    {
       OnSelectedWeapon?.Invoke();
       CreateWeaponUpdateBar(CurrentWeapon);
+      Debug.Log("aaa"+CurrentWeapon.CheckWeaponUnLocked());
    }
- 
+
+   public void BuyWeapon()
+   { var bought= CurrentWeapon.BuyWeapon(EconomyManager.Instance.GetCurrentCash());
+      if (bought)
+      {
+         SetCurrentWeapon(CurrentWeapon);
+      }
+   }
+
 
 }

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83880b7d6c8d7470795c40631a939363, type: 3}
   m_Name: UZI
   m_EditorClassIdentifier: 
+  weaponUnlocked: 1
+  unlockPrice: 0
   name: UZI
   weaponDps: 45.5
   weaponPrefab: {fileID: 0}
@@ -21,17 +23,14 @@ MonoBehaviour:
     maxWeaponValue: 5
     maxValue: 15
     factor: 0.5
-    currentValue: 3.5
     staringValue: 3.5
   - upgradeName: AMMO
     maxWeaponValue: 70
     maxValue: 150
     factor: 10
-    currentValue: 40
     staringValue: 40
   - upgradeName: SPEED
     maxWeaponValue: 115
     maxValue: 150
     factor: 15
-    currentValue: 70
     staringValue: 70
